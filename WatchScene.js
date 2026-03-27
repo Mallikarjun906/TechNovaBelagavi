@@ -10,7 +10,7 @@ export function initWatchScene() {
 
   // CAMERA SETUP
   const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
-  camera.position.set(0, 0, 8);
+  camera.position.set(0, 0, 5); // Moved closer
 
   // RENDERER SETUP
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -26,86 +26,65 @@ export function initWatchScene() {
   controls.dampingFactor = 0.05;
   controls.autoRotate = true;
   controls.autoRotateSpeed = 0.5;
-  controls.minDistance = 3;
+  controls.minDistance = 2;
   controls.maxDistance = 15;
   controls.enablePan = false;
 
-  // LIGHTING (Premium look)
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+  // LIGHTING (Premium look - Matching Drone)
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
   scene.add(ambientLight);
 
-  const dirLight1 = new THREE.DirectionalLight(0xffffff, 2);
+  const dirLight1 = new THREE.DirectionalLight(0x00d4ff, 2);
   dirLight1.position.set(5, 5, 5);
   scene.add(dirLight1);
 
-  const dirLight2 = new THREE.DirectionalLight(0x7c3aed, 1.5);
-  dirLight2.position.set(-5, -5, -5);
+  const dirLight2 = new THREE.DirectionalLight(0xff6b00, 1.5);
+  dirLight2.position.set(-5, 3, -5);
   scene.add(dirLight2);
 
-  const pointLight1 = new THREE.PointLight(0x00d4ff, 1);
-  pointLight1.position.set(2, 2, 2);
-  scene.add(pointLight1);
+  const fillLight = new THREE.PointLight(0xffffff, 1);
+  fillLight.position.set(0, -2, 2);
+  scene.add(fillLight);
 
-  // MATERIALS
-  const matTitanium = new THREE.MeshStandardMaterial({
-    color: 0x888888,
+  // MATERIALS (Matching Drone)
+  const matDarkMetal = new THREE.MeshStandardMaterial({
+    color: 0x111111,
     metalness: 0.9,
-    roughness: 0.3,
+    roughness: 0.2,
+  });
+
+  const matAccent = new THREE.MeshStandardMaterial({
+    color: 0x00d4ff,
+    metalness: 0.8,
+    roughness: 0.1,
+    emissive: 0x002233
   });
 
   const matGold = new THREE.MeshStandardMaterial({
     color: 0xffd700,
     metalness: 1.0,
-    roughness: 0.2,
-  });
-  
-  const matRoseGold = new THREE.MeshStandardMaterial({
-    color: 0xb76e79,
-    metalness: 1.0,
-    roughness: 0.2,
+    roughness: 0.3,
   });
 
-  const matSteel = new THREE.MeshStandardMaterial({
-    color: 0xaaaaaa,
-    metalness: 1.0,
-    roughness: 0.1,
+  const matCarbon = new THREE.MeshStandardMaterial({
+    color: 0x050505,
+    metalness: 0.6,
+    roughness: 0.8,
   });
 
-  const matSapphire = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
-    metalness: 0.1,
-    roughness: 0.05,
-    transmission: 0.9, // glass-like
-    thickness: 0.5,
+  const matWireframe = new THREE.MeshStandardMaterial({
+    color: 0x00d4ff,
+    wireframe: true,
     transparent: true,
-    opacity: 1
-  });
-
-  const matDarkDial = new THREE.MeshStandardMaterial({
-    color: 0x111111,
-    metalness: 0.8,
-    roughness: 0.5,
-  });
-
-  const matRuby = new THREE.MeshPhysicalMaterial({
-    color: 0xff0044,
-    metalness: 0.1,
-    roughness: 0.1,
-    transmission: 0.8,
-    transparent: true
-  });
-
-  const matLeather = new THREE.MeshStandardMaterial({
-    color: 0x1a1a1a,
-    metalness: 0.1,
-    roughness: 0.9,
+    opacity: 0.3
   });
 
   // WATCH GROUP
   const watchGroup = new THREE.Group();
-  // Rotate so gravity/down is along -Y, but face points towards +Z
-  watchGroup.rotation.x = -Math.PI / 8; // Slight tilt
-  watchGroup.rotation.y = -Math.PI / 6;
+  watchGroup.scale.set(1.5, 1.5, 1.5);
+  // Remove tilt so it faces the camera directly
+  watchGroup.rotation.x = 0;
+  watchGroup.rotation.y = 0;
   scene.add(watchGroup);
 
   const parts = [];
@@ -132,7 +111,7 @@ export function initWatchScene() {
 
   // 1. STRAP (Back and Front)
   const strapGeo = new THREE.BoxGeometry(1.2, 5, 0.1);
-  createPart(strapGeo, matLeather, {
+  createPart(strapGeo, matCarbon, {
     name: "Alligator Leather Strap",
     desc: "Hand-stitched premium leather for maximum comfort.",
     mfr: "NEXUS",
@@ -142,7 +121,7 @@ export function initWatchScene() {
   // 2. CASE BACK (Exhibition)
   const caseBackGeo = new THREE.CylinderGeometry(1.3, 1.3, 0.1, 64);
   caseBackGeo.rotateX(Math.PI / 2);
-  createPart(caseBackGeo, matTitanium, {
+  createPart(caseBackGeo, matDarkMetal, {
     name: "Titanium Case Back",
     desc: "Exhibition case back allowing view of the movement.",
     mfr: "NEXUS",
@@ -162,7 +141,7 @@ export function initWatchScene() {
   // 4. MOVEMENT : MAINSPRING BARREL & GEARS
   const gear1Geo = new THREE.CylinderGeometry(0.4, 0.4, 0.05, 16);
   gear1Geo.rotateX(Math.PI / 2);
-  const gear1 = createPart(gear1Geo, matRoseGold, {
+  const gear1 = createPart(gear1Geo, matAccent, {
     name: "Mainspring Barrel",
     desc: "Stores energy for the watch mechanism.",
     mfr: "NEXUS",
@@ -171,7 +150,7 @@ export function initWatchScene() {
 
   const gear2Geo = new THREE.CylinderGeometry(0.3, 0.3, 0.05, 16);
   gear2Geo.rotateX(Math.PI / 2);
-  const gear2 = createPart(gear2Geo, matSteel, {
+  const gear2 = createPart(gear2Geo, matDarkMetal, {
     name: "Transmission Gear",
     desc: "Transfers energy from the barrel to the escapement.",
     mfr: "NEXUS",
@@ -189,18 +168,18 @@ export function initWatchScene() {
 
   // Add bridge to tourbillon
   const bridgeGeo = new THREE.BoxGeometry(0.8, 0.05, 0.05);
-  const bridge = new THREE.Mesh(bridgeGeo, matTitanium);
+  const bridge = new THREE.Mesh(bridgeGeo, matDarkMetal);
   tourbillon.add(bridge);
-  
+
   // Center jewel
   const jewelGeo = new THREE.CylinderGeometry(0.05, 0.05, 0.06, 16);
   jewelGeo.rotateX(Math.PI / 2);
-  const jewel = new THREE.Mesh(jewelGeo, matRuby);
+  const jewel = new THREE.Mesh(jewelGeo, matAccent);
   tourbillon.add(jewel);
 
   // 6. MAIN CASE & BEZEL
   const caseGeo = new THREE.TorusGeometry(1.4, 0.2, 32, 64);
-  createPart(caseGeo, matTitanium, {
+  createPart(caseGeo, matDarkMetal, {
     name: "Titanium Outer Case",
     desc: "Aerospace-grade main chassis housing all internal components.",
     mfr: "NEXUS",
@@ -219,7 +198,7 @@ export function initWatchScene() {
 
   // 8. DIAL (Skeletonized)
   const dialGeo = new THREE.RingGeometry(1.0, 1.3, 64);
-  createPart(dialGeo, matDarkDial, {
+  createPart(dialGeo, matCarbon, {
     name: "Skeleton Dial",
     desc: "Open-worked dial revealing the mechanical heart inside.",
     mfr: "NEXUS",
@@ -230,7 +209,7 @@ export function initWatchScene() {
   const hourHandGeo = new THREE.BoxGeometry(0.06, 0.6, 0.02);
   const minuteHandGeo = new THREE.BoxGeometry(0.04, 0.9, 0.02);
   const secondHandGeo = new THREE.BoxGeometry(0.02, 1.0, 0.02);
-  
+
   // Translate geometry so rotation happens at the base, not center
   hourHandGeo.translate(0, 0.3, 0);
   minuteHandGeo.translate(0, 0.45, 0);
@@ -260,7 +239,7 @@ export function initWatchScene() {
   // 10. SAPPHIRE CRYSTAL
   const glassGeo = new THREE.CylinderGeometry(1.35, 1.35, 0.1, 64);
   glassGeo.rotateX(Math.PI / 2);
-  createPart(glassGeo, matSapphire, {
+  createPart(glassGeo, matWireframe, {
     name: "Sapphire Crystal",
     desc: "Scratch-resistant domed glass protecting the dial.",
     mfr: "NEXUS",
@@ -307,10 +286,10 @@ export function initWatchScene() {
       // Calculate a target camera position derived from the clicked part
       const partWorldPos = new THREE.Vector3();
       clickedPart.getWorldPosition(partWorldPos);
-      
+
       const camOffset = new THREE.Vector3(0, 0, 4); // desired distance from part
       camOffset.applyQuaternion(camera.quaternion); // orient offset to current camera angle
-      
+
       const targetCamPos = partWorldPos.clone().add(camOffset);
 
       gsap.to(camera.position, {
@@ -321,7 +300,7 @@ export function initWatchScene() {
         ease: "power2.inOut",
         onUpdate: () => controls.update()
       });
-      
+
       gsap.to(controls.target, {
         x: partWorldPos.x,
         y: partWorldPos.y,
@@ -360,7 +339,7 @@ export function initWatchScene() {
         duration: 2.0,
         ease: "power3.inOut"
       });
-      
+
       // Separate components visually by adjusting rotation occasionally during explosion
       if (part !== rotor && part !== gear1 && part !== gear2 && part !== tourbillon) {
         if (isExploded) {
@@ -372,7 +351,7 @@ export function initWatchScene() {
         }
       }
     });
-    
+
     // Zoom out slightly when exploding
     if (isExploded) {
       gsap.to(camera.position, {
@@ -406,19 +385,19 @@ export function initWatchScene() {
 
     // LIVE MOVEMENT 
     // Tourbillon rotates fast
-    tourbillon.rotation.y += 2.0 * delta; 
-    
+    tourbillon.rotation.y += 2.0 * delta;
+
     // Gears rotate continuously
     gear1.rotation.y -= 0.5 * delta;
     gear2.rotation.y += 1.0 * delta;
-    
+
     // Hands moving based on actual time
     const date = new Date();
     const ms = date.getMilliseconds();
     const sec = date.getSeconds();
     const min = date.getMinutes();
     const hr = date.getHours() % 12;
-    
+
     // Sweeping second hand (smooth continuous motion, not ticking)
     const exactSec = sec + (ms / 1000);
     // Negative because clock hands turn clockwise
@@ -429,7 +408,7 @@ export function initWatchScene() {
 
     const exactHr = hr + (exactMin / 60);
     hourHand.rotation.z = -exactHr * (Math.PI * 2 / 12);
-    
+
     // Hovering subtle effect on the entire watch model if assembled
     if (!isExploded) {
       watchGroup.position.y = Math.sin(time * 1.5) * 0.05;
