@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NEXUS 3D — Premium Tech E-Commerce</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- CUSTOM CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- PART TOOLTIP -->
+<div id="part-tooltip">
+  <h4 id="tt-name">COMPONENT</h4>
+  <p id="tt-desc">Description here</p>
+  <div class="part-price" id="tt-price">$0</div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a class="logo" href="#">NEX<span>US</span></a>
+  <div class="nav-links">
+    <a href="#drone-section" class="nav-item-drone">Drones</a>
+    <a href="#car-section" class="nav-item-car">Cars</a>
+    <a href="#watch-section" class="nav-item-watch">Watches</a>
+    <a href="#products">Shop</a>
+    <button class="nav-cart">CART (0)</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-eyebrow">// NEXT-GEN 3D PRODUCT SHOWCASE //</div>
+    <h1 class="hero-title glitch" data-text="NEXUS 3D">NEXUS 3D</h1>
+    <p class="hero-sub">Disassemble. Explore. Experience.<br>Premium tech, from the inside out.</p>
+    <div class="hero-cta-row">
+      <button class="btn-primary" onclick="document.getElementById('drone-section').scrollIntoView({behavior:'smooth'})">EXPLORE DRONES</button>
+      <button class="btn-secondary" onclick="document.getElementById('car-section').scrollIntoView({behavior:'smooth'})">VIEW ENGINES</button>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>SCROLL</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <div class="ticker-item">NEXUS DRONE PRO X1 <span>→ $2,499</span></div>
+    <div class="ticker-item">VORTEX ENGINE REBUILD <span>→ $8,999</span></div>
+    <div class="ticker-item">CHRONOS WATCH S7 <span>→ $4,299</span></div>
+    <div class="ticker-item">FREE SHIPPING OVER $500 <span>→ WORLDWIDE</span></div>
+    <div class="ticker-item">3D EXPLODED VIEW <span>→ ALL PRODUCTS</span></div>
+    <div class="ticker-item">NEXUS DRONE PRO X1 <span>→ $2,499</span></div>
+    <div class="ticker-item">VORTEX ENGINE REBUILD <span>→ $8,999</span></div>
+    <div class="ticker-item">CHRONOS WATCH S7 <span>→ $4,299</span></div>
+    <div class="ticker-item">FREE SHIPPING OVER $500 <span>→ WORLDWIDE</span></div>
+    <div class="ticker-item">3D EXPLODED VIEW <span>→ ALL PRODUCTS</span></div>
+  </div>
+</div>
+
+<!-- DRONE SECTION -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="logo" href="#">NEX<span>US</span></a>
+      <p>Premium 3D product experiences for the discerning tech enthusiast. Every component, every detail, engineered to perfection.</p>
+    </div>
+    <div class="footer-col">
+      <h5>PRODUCTS</h5>
+      <a href="#">Drones</a>
+      <a href="#">Automotive</a>
+      <a href="#">Watches</a>
+      <a href="#">Accessories</a>
+    </div>
+    <div class="footer-col">
+      <h5>SUPPORT</h5>
+      <a href="#">Documentation</a>
+      <a href="#">Warranty</a>
+      <a href="#">Shipping</a>
+      <a href="#">Returns</a>
+    </div>
+    <div class="footer-col">
+      <h5>COMPANY</h5>
+      <a href="#">About</a>
+      <a href="#">Careers</a>
+      <a href="#">Press</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 NEXUS 3D. All rights reserved.</p>
+    <p style="font-family:'Share Tech Mono',monospace;font-size:.7rem;color:rgba(0,212,255,0.4);">v2.1.0 // THREE.JS POWERED</p>
+  </div>
+</footer>
+</body>
+</html>
