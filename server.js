@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname)));
 const Product = require('./models/Product');
 
 // MongoDB Connection
-mongoose.connect('mongodb://127.0.0.1:27017/nexus3d')
+mongoose.connect('mongodb+srv://Prajwal22:Pajju03@cluster0.tdq8nfl.mongodb.net/hack')
   .then(async () => {
     console.log('MongoDB connected successfully');
     

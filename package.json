@@ -6,5 +6,24 @@
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.3.3"
-  }
+  },
+  "name": "technovabelagavi",
+  "version": "1.0.0",
+  "main": "script.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mallikarjun906/TechNovaBelagavi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mallikarjun906/TechNovaBelagavi/issues"
+  },
+  "homepage": "https://github.com/Mallikarjun906/TechNovaBelagavi#readme",
+  "description": ""
 }
